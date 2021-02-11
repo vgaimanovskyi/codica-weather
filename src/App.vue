@@ -115,8 +115,8 @@ export default {
     },
   },
   async mounted() {
-    const cookieStr = Cookies.get("weather-cities");
-    const cities = JSON.parse(cookieStr || "[]");
+    const cookieStr = Cookies.get("weather-cities") || "[]";
+    const cities = JSON.parse(cookieStr);
     if (cities.length) {
       await this.$store.dispatch("fetchGroupByIds", cities);
     }
