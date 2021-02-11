@@ -8,11 +8,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/codica-weather/css/chunk-vendors.e4943a01.css"
   },
   {
-    "revision": "6307ad9f4d4fb84e9309",
+    "revision": "8c7268acdec7af7ca18e",
     "url": "/codica-weather/css/index.15bc9f56.css"
   },
   {
-    "revision": "3b595a0213ac590eab94735442ec163f",
+    "revision": "fb726c1efd8a931df73a8122f2582e37",
     "url": "/codica-weather/index.html"
   },
   {
@@ -24,8 +24,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/codica-weather/js/chunk-vendors.d1a08eb3.js"
   },
   {
-    "revision": "6307ad9f4d4fb84e9309",
-    "url": "/codica-weather/js/index.07139427.js"
+    "revision": "8c7268acdec7af7ca18e",
+    "url": "/codica-weather/js/index.c05f85f5.js"
   },
   {
     "revision": "c4ed4acbcf7d9c90c57ee8bbb3283674",
