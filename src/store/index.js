@@ -8,7 +8,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     data: [],
-    details: {},
+    details: null,
     cookies: []
   },
   mutations: {
@@ -21,18 +21,21 @@ export default new Vuex.Store({
     setItem(state, city) {
       state.data.push(city);
     },
+    setDetails(state, item) {
+      state.details = item;
+    },
+    refreshItem(state, newItem) {
+      const idx = state.data.findIndex(item => item.id === newItem.id);
+      state.data.splice(idx, 1, newItem);
+    },
     removeItem(state, id) {
       const idx = state.data.findIndex(item => item.id === id);
       if (idx !== -1) {
         state.data.splice(idx, 1);
       }
     },
-    refreshItem(state, newItem) {
-      const idx = state.data.findIndex(item => item.id === newItem.id);
-      state.data.splice(idx, 1, newItem);
-    },
-    setDetails(state, item) {
-      state.details = item;
+    removeData(state) {
+      state.data = [];
     }
   },
   actions: {
@@ -160,16 +163,16 @@ export default new Vuex.Store({
 
       Cookies.remove('weather-cities');
       commit('setCookies', []);
-      commit('setGroup', []);
-      commit('setDetails', {});
+      commit('removeData');
+      commit('setDetails', null);
       commit('setLoading', false);
       commit('clearError');
       commit('setAlert', "Data was cleared!");
     }
   },
   getters: {
-    getData: (state) => state.data || [],
-    getDetails: (state) => state.details || null,
+    getData: (state) => state.data,
+    getDetails: (state) => state.details,
     getChartValues: (state) => state.details.list.slice(0, 7).map(day =>
       Math.round(day.main.temp) > 0
         ? `+${Math.round(day.main.temp)}`
