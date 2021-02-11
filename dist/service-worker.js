@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/codica-weather/precache-manifest.c6171c8a7641e7d47708b108cc2b79e2.js"
+  "/codica-weather/precache-manifest.e830577369f4c749e8e85209bf1586dc.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "codica"});

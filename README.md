@@ -1,24 +1,17 @@
 # codica
 
-## Project setup
-```
-npm install
-```
+## Codica test task - [weather vue app](https://vgaimanovskyi.github.io/codica-weather/#/)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Click <strong>Floating Burger</strong> to open control buttons.  
+Use it to <strong>Add new city</strong>, <strong>Get geolocation</strong> or <strong>Clear all data</strong>;
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### Home page
+On each city cart there are buttons:
+- <strong>Delails</strong> - open new page with city weather in details;
+- <strong>Refresh</strong> - refresh the weather in its city;
+- <strong>Delete</strong> - delete the cart from the list;
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Details page
+In this page there is one cart with city weather in details.  
+This cart has <strong>Go back</strong> button and <strong>Delete</strong> button;  
+Also you can use <strong>Floating Burger</strong> buttons here.

@@ -60,8 +60,13 @@ export default new Vuex.Store({
         const response = await fetch(`https://api.openweathermap.org/data/2.5/group?id=${cities}&units=metric&appid=13fc498a61d95ff41db0728d76947f92`);
         const data = await response.json();
 
-        commit('setGroup', data);
-        commit('setCookies', cities);
+        if (data.cnt > 0) {
+          commit('setGroup', data);
+          commit('setCookies', cities);
+        } else {
+          commit('setError', data.message);
+        }
+
         commit('setLoading', false);
       } catch (error) {
         commit('setError', error);
@@ -78,18 +83,25 @@ export default new Vuex.Store({
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${name}&units=metric&appid=13fc498a61d95ff41db0728d76947f92`);
         const city = await response.json();
 
-        const idx = state.data.findIndex(item => item.name === city.name);
-        if (idx !== -1) {
-          commit('setError', `Error: ${name} is already added!`);
+        if (city.cod == 200) {
+          const idx = state.data.findIndex(item => item.name === city.name);
+
+          if (idx !== -1) {
+            commit('setError', `Error: ${name} is already added!`);
+          } else {
+            const cookies = [...state.cookies];
+            cookies.push(city.id);
+            Cookies.set('weather-cities', cookies, { expires: 7 });
+
+            commit('setItem', city);
+            commit('setCookies', cookies);
+            commit('setAlert', `${city.name} fetched successfuly!`);
+          }
         } else {
-          const cookies = [...state.cookies];
-          cookies.push(city.id);
-          Cookies.set('weather-cities', cookies, { expires: 7 });
-          commit('setCookies', cookies);
-          commit('setItem', city);
+          commit('setError', city.message);
         }
+
         commit('setLoading', false);
-        commit('setAlert', `${city.name} fetched successfuly!`);
       } catch (error) {
         commit('setError', error);
         commit('setLoading', false);
@@ -105,9 +117,14 @@ export default new Vuex.Store({
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?id=${id}&units=metric&appid=13fc498a61d95ff41db0728d76947f92`);
         const city = await response.json();
 
-        commit('refreshItem', city);
+        if (city.cod == 200) {
+          commit('refreshItem', city);
+          commit('setAlert', `${city.name} refreshed successfuly!`);
+        } else {
+          commit('setError', city.message);
+        }
+
         commit('setLoading', false);
-        commit('setAlert', `${city.name} refreshed successfuly!`);
       } catch (error) {
         commit('setError', error);
         commit('setLoading', false);
@@ -120,9 +137,14 @@ export default new Vuex.Store({
 
       try {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?id=${id}&units=metric&appid=13fc498a61d95ff41db0728d76947f92`);
-        const item = await response.json();
+        const city = await response.json();
 
-        commit('setDetails', item);
+        if (city.cod == 200) {
+          commit('setDetails', city);
+        } else {
+          commit('setError', city.message);
+        }
+
         commit('setLoading', false);
       } catch (error) {
         commit('setError', error);
@@ -139,18 +161,24 @@ export default new Vuex.Store({
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=13fc498a61d95ff41db0728d76947f92`);
         const city = await response.json();
 
-        const idx = state.data.findIndex(item => item.name === city.name);
-        if (idx !== -1) {
-          commit('setError', `Error: ${city.name} is already added!`);
-        } else {
-          const cookies = [...state.cookies];
-          cookies.push(city.id);
-          Cookies.set('weather-cities', cookies, { expires: 7 });
-          commit('setCookies', cookies);
-          commit('setItem', city);
-          commit('setAlert', `${city.name} fetched successfuly!`);
+        if (city.cod == 200) {
 
+          const idx = state.data.findIndex(item => item.name === city.name);
+          if (idx !== -1) {
+            commit('setError', `Error: ${city.name} is already added!`);
+          } else {
+            const cookies = [...state.cookies];
+            cookies.push(city.id);
+            Cookies.set('weather-cities', cookies, { expires: 7 });
+
+            commit('setItem', city);
+            commit('setCookies', cookies);
+            commit('setAlert', `${city.name} fetched successfuly!`);
+          }
+        } else {
+          commit('setError', city.message);
         }
+
         commit('setLoading', false);
       } catch (error) {
         commit('setError', error);

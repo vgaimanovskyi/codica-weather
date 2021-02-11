@@ -4,6 +4,7 @@
       <v-card-title> Add new City </v-card-title>
       <v-card-text>
         <v-text-field
+          ref="input"
           label="Enter city name"
           :rules="rules"
           hide-details="auto"
@@ -59,6 +60,7 @@ export default {
     async AddCity() {
       await this.$store.dispatch("fetchCityByName", this.city);
       this.city = "";
+      this.$refs.input.resetValidation();
       this.modal = false;
     },
   },
