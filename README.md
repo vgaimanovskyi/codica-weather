@@ -1,6 +1,6 @@
 # codica
 
-## Codica test task - [weather vue app](https://vgaimanovskyi.github.io/codica-weather/#/)
+## Codica test task - [weather vue app](https://vgaimanovskyi.github.io/codica-weather/)
 
 Click <strong>Floating Burger</strong> to open control buttons.  
 Use it to <strong>Add new city</strong>, <strong>Get geolocation</strong> or <strong>Clear all data</strong>;
